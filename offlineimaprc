@@ -31,7 +31,7 @@ sep = /
 [Repository Gmail-Remote]
 type = IMAP
 ssl = yes
-sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+sslcacertfile = /path/to/cert
 remoteport = 993
 remoteuser = [$YOUR_MAIL]
 remotepass = [$YOUR_PASS]
