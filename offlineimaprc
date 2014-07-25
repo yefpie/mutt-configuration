@@ -1,0 +1,50 @@
+[general]
+metadata = ~/.offlineimap
+accounts = Gmail
+ui = Curses.Blinkenlights, TTY.TTYUI
+maxsyncaccounts = 1
+ignore-readonly = no
+socktimeout = 120
+fsync = false
+
+[mbnames]
+enabled = yes
+filename = ~/.mutt/muttrc.mailboxes
+header = "mailboxes "
+peritem = "+%(accountname)s/%(foldername)s"
+sep = " ||  "
+footer = "\n"
+
+
+[Account Gmail]
+localrepository = local-gmail
+remoterepository = remote-gmail
+autorefresh = 5
+quick = 10
+maxage = 14
+
+[Repository Gmail-Local]
+type = Maildir
+localfolders = ~/Mail/Gmail
+sep = /
+
+[Repository Gmail-Remote]
+type = IMAP
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+remoteport = 993
+remoteuser = [$YOUR_MAIL]
+remotepass = [$YOUR_PASS]
+realdelete = no
+maxconnections = 3
+holdconnectionopen = no
+subscribedonly = no
+nametrans = lambda folder: re.sub('^\[Google\ Mail\]\/Sent Mail', 'sent',
+                           re.sub('^\[Google\ Mail\]\/Starred', 'starred',
+                           re.sub('^\[Google\ Mail\]\/Drafts', 'drafts',
+                           re.sub('^\[Google\ Mail\]\/Bin', 'bin',
+                           re.sub('^\[Google\ Mail\]\/Spam', 'spam',
+                           folder)))))
+
+folderfilter = lambda foldername: foldername not in ['^\[Google Mail\]\/Important', '^\[Google Mail\]\/All\ Mail']
+realdelete = yes
